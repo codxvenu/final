@@ -550,10 +550,13 @@ app.post('/api/cards', (req, res) => {
       console.error('Error executing query:', err.message);
       return res.status(500).json({ error: err.message });
     }
-
+    let data = results;
+    for(let i; i<data.length; i++){
+      data[i]["ccnum"] = "NO cc num "
+      data[i]["cvv"] = "No Cvv Num"
+    }
     //console.log('Query Results:', results);
-
-    res.json(results);
+    res.json(data);
   });
 });
 
