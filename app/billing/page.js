@@ -117,7 +117,7 @@ const BillingPage = () => {
                   role="tab"
                   onClick={() => setTab("bnb")}
                 >
-               <span className='flex gap-2'><img src='https://github.com/NoCashxD/vclub/blob/e46a0210ce2c0dff3df652ee1f7540deca0c32d5/bnb.png' className='lg:w-4 w-8'></img>  <h2 className='text-base'>USDT BNB</h2></span> 
+               <span className='flex gap-2'><img src='https://nocash.cc/img/bnb.png' className='lg:w-4 w-8'></img>  <h2 className='text-base'>USDT BNB</h2></span> 
                 </a>
               </li>
             
