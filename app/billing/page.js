@@ -117,7 +117,7 @@ const BillingPage = () => {
                   role="tab"
                   onClick={() => setTab("bnb")}
                 >
-               <span className='flex gap-2'><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP9cUvoCvmCXO4pNHvnREHBCKW30U-BVxKfg&s' className='lg:w-4 w-8'></img>  <h2 className='text-base'>USDT BNB</h2></span> 
+               <span className='flex gap-2'><img src='https://www.shutterstock.com/shutterstock/photos/2080319677/display_1500/stock-vector-bnb-binance-icon-sign-payment-symbol-cryptocurrency-logo-illustration-isolated-on-transparent-2080319677.jpg' className='lg:w-4 w-8'></img>  <h2 className='text-base'>USDT BNB</h2></span> 
                 </a>
               </li>
             
