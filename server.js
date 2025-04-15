@@ -550,14 +550,17 @@ app.post('/api/cards', (req, res) => {
       console.error('Error executing query:', err.message);
       return res.status(500).json({ error: err.message });
     }
+  
     let data = results;
-    for(let i; i<data.length; i++){
-      data[i]["ccnum"] = "NO cc num "
-      data[i]["cvv"] = "No Cvv Num"
+  
+    for (let i = 0; i < data.length; i++) {
+      data[i]["ccnum"] = "NO cc num";
+      data[i]["cvv"] = "No Cvv Num";
     }
-    //console.log('Query Results:', results);
+  
     res.json(data);
   });
+  
 });
 
 app.get('/api/admin/users', (req, res) => {
@@ -806,8 +809,15 @@ app.post('/api/bins', (req, res) => {
         console.error('Database error:', err);
         return res.status(500).json({ error: err.message });
       }
-      // //console.log('Results:', results); // Log the results
-      res.json(results);
+      
+      let data = results;
+      
+        for (let i = 0; i < data.length; i++) {
+          data[i]["ccnum"] = "NO cc num";
+          data[i]["cvv"] = "No Cvv Num";
+        }
+      
+        res.json(data);
     });
   }
 });
