@@ -34,7 +34,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ message: 'Internal Server Error' });
 });
 app.use((req, res, next) => {
-  console.log(`Incoming request: ${req.method} ${req.url}`);
+  //console.log(`Incoming request: ${req.method} ${req.url}`);
   next();
 });
 
@@ -57,7 +57,7 @@ const handleDisconnect = () => {
       console.error('Error connecting to MySQL:', err);
       setTimeout(handleDisconnect, 2000); // Attempt to reconnect after 2 seconds
     } else {
-      console.log('Connected to MySQL database...');
+      //console.log('Connected to MySQL database...');
       connection.release();
     }
   });
@@ -147,7 +147,7 @@ app.post('/api/preorder', (req, res) => {
       console.error('Error sending email:', error);
       res.status(500).send({ message: 'Failed to send preorder request' });
     } else {
-      console.log('Email sent:', info.response);
+      //console.log('Email sent:', info.response);
       res.status(200).send({ message: 'Preorder request sent successfully' });
     }
   });
@@ -161,7 +161,7 @@ app.get('/api/captcha', (req, res) => {
   };
   const captcha = svgCaptcha.create(captchaOptions);
   req.session.captcha = captcha.text.toLowerCase();
-  console.log('CAPTCHA text stored in session:', req.session.captcha, req.session); // Debug line
+  //console.log('CAPTCHA text stored in session:', req.session.captcha, req.session); // Debug line
   res.type('svg');
   res.status(200).send(captcha.data);
 });
@@ -197,11 +197,11 @@ app.post('/api/signup', (req, res) => {
 // Login route
 app.post('/api/login', (req, res) => {
   const { username, password, captcha } = req.body;
-  console.log('Received CAPTCHA:', captcha); // Debug line
-  console.log('Stored CAPTCHA:', req.session.captcha); // Debug line
+  //console.log('Received CAPTCHA:', captcha); // Debug line
+  //console.log('Stored CAPTCHA:', req.session.captcha); // Debug line
 
   if (!req.session.captcha || captcha.toLowerCase() !== req.session.captcha) {
-    console.log('Invalid CAPTCHA:', captcha, req.session.captcha);
+    //console.log('Invalid CAPTCHA:', captcha, req.session.captcha);
     return res.status(400).send({ message: 'Invalid CAPTCHA' });
   }
 
@@ -214,7 +214,7 @@ app.post('/api/login', (req, res) => {
 
     if (results.length > 0) {
       req.session.username = username;
-      console.log(results);
+      //console.log(results);
 
       res.status(200).send({
         message: 'Login successful',
@@ -294,7 +294,7 @@ app.get('/api/checks', (req, res) => {
 
 app.post('/api/admin/users/update', (req, res) => {
   const { username, balance, role, access } = req.body;  // Destructure from req.body
-  console.log(req.body, "data");
+  //console.log(req.body, "data");
 
   // Correct SQL syntax for update query
   const query = `UPDATE users SET balance = ?, role = ?, access = ? WHERE username = ?`;
@@ -362,7 +362,7 @@ app.get('/api/graph-data', (req, res) => {
       res.status(500).send(err);
     } else {
       res.json(results);
-      console.log("home session", req.session);
+      //console.log("home session", req.session);
 
     }
   });
@@ -375,7 +375,7 @@ app.get('/api/cities', (req, res) => {
       res.status(500).send(err);
     } else {
       res.json(results);
-      console.log("credit session", req.session);
+      //console.log("credit session", req.session);
     }
   });
 });
@@ -460,7 +460,7 @@ app.get('/api/getusers', (req, res) => {
       res.status(500).send(err);
     } else {
       res.json(results);
-      console.log(results);
+      //console.log(results);
 
     }
   });
@@ -542,8 +542,8 @@ app.post('/api/cards', (req, res) => {
 
 
   // Log the constructed query and parameters
-  console.log('Constructed Query:', query);
-  console.log('Query Parameters:', queryParams);
+  //console.log('Constructed Query:', query);
+  //console.log('Query Parameters:', queryParams);
 
   // Execute the query
   db.query(query, queryParams, (err, results) => {
@@ -552,7 +552,7 @@ app.post('/api/cards', (req, res) => {
       return res.status(500).json({ error: err.message });
     }
 
-    console.log('Query Results:', results);
+    //console.log('Query Results:', results);
 
     res.json(results);
   });
@@ -595,7 +595,7 @@ app.get('/api/card/order', (req, res) => {
       console.error('Database error:', err);
       return res.status(500).json({ error: err.message });
     }
-    console.log(results)
+    //console.log(results)
     res.json(results);
   });  
 });
@@ -647,7 +647,7 @@ app.get('/api/ticket', (req, res) => {
 app.post("/api/addcart", (req, res) => {
   const { username, info } = req.body; // Destructure both 'username' and 'info' from req.body
   let item = info[0];
-  console.log(item, "data");
+  //console.log(item, "data");
 
   if (!username) {
     return res.status(401).send({ message: 'User not authorized' });
@@ -719,7 +719,7 @@ app.post("/api/addcart", (req, res) => {
 app.post("/api/order/remove", (req, res) => {
   const { username, info } = req.body; // Destructure both 'username' and 'info' from req.body
   let item = info[0];
-  console.log(item, "data");
+  //console.log(item, "data");
 
   if (!username) {
     return res.status(401).send({ message: 'User not authorized' });
@@ -746,7 +746,7 @@ app.post("/api/order/remove", (req, res) => {
 app.post("/api/cart/remove", (req, res) => {
   const { username, info } = req.body; // Destructure both 'username' and 'info' from req.body
   let item = info[0];
-  console.log(item, "data");
+  //console.log(item, "data");
 
   if (!username) {
     return res.status(401).send({ message: 'User not authorized' });
@@ -798,13 +798,13 @@ app.post('/api/bins', (req, res) => {
     if (types) query += ` AND type = '${types}'`;
 
 
-    // console.log('Constructed Query:', query); // Log the constructed query
+    // //console.log('Constructed Query:', query); // Log the constructed query
     db.query(query, (err, results) => {
       if (err) {
         console.error('Database error:', err);
         return res.status(500).json({ error: err.message });
       }
-      // console.log('Results:', results); // Log the results
+      // //console.log('Results:', results); // Log the results
       res.json(results);
     });
   }
@@ -859,13 +859,13 @@ app.post('/api/Proxies', (req, res) => {
     query += ` AND price BETWEEN '${minprice}' AND '${maxprice}'`;
   }
 
-  // console.log('Constructed Query:', query); // Log the constructed query
+  // //console.log('Constructed Query:', query); // Log the constructed query
   db.query(query, (err, results) => {
     if (err) {
       console.error('Database error:', err);
       return res.status(500).json({ error: err.message });
     }
-    // console.log('Results:', results); // Log the results
+    // //console.log('Results:', results); // Log the results
     res.json(results);
   });
 
@@ -878,7 +878,7 @@ app.post('/api/purchase', (req, res) => {
   if (!username) {
     return res.status(401).send({ message: 'User not authorized' });
   }
-  console.log(info, "data");
+  //console.log(info, "data");
 
 
 
@@ -1070,7 +1070,7 @@ app.post('/api/purchase', (req, res) => {
 app.post('/api/purchase_bins', (req, res) => {
   const { username, info } = req.body;
 
-  console.log(req.body, username);
+  //console.log(req.body, username);
 
   if (!username) {
     return res.status(401).send({ message: 'User not authorized' });
@@ -1328,7 +1328,7 @@ app.get('/api/view/:id', (req, res) => {
   const username = req.query.username;
   const id = req.params.id;
 
-  console.log(username,id);
+  //console.log(username,id);
   
 
   if (!username) {
@@ -1354,7 +1354,7 @@ app.get('/api/order/view/:id', (req, res) => {
   const username = req.query.username;
   const id = req.params.id;
 
-  console.log(username,id);
+  //console.log(username,id);
   
 
   if (!username) {
@@ -1509,7 +1509,7 @@ app.get('/api/checker', (req, res) => {
 
     if (results.length > 0) {
       res.status(200).send(results[0]);
-      // console.log(results);
+      // //console.log(results);
 
     } else {
       res.status(404).send({ message: 'User not found' });
@@ -1545,7 +1545,7 @@ app.post('/api/send-email', (req, res) => {
       console.error('Error sending email:', error);
       return res.status(500).send({ message: 'Failed to send email' });
     }
-    console.log('Email sent: ' + info.response);
+    //console.log('Email sent: ' + info.response);
     res.status(200).send({ message: 'Email sent successfully!' });
   });
 });
@@ -1589,7 +1589,7 @@ app.post("/api/add-card", (req, res) => {
       return res.status(500).json({ message: "Error inserting card data into the database" });
     }
     res.status(200).json({ message: "Card data added successfully" });
-    console.log(result);
+    //console.log(result);
 
   });
 });
@@ -1659,8 +1659,8 @@ app.post('/api/add-seller', (req, res) => {
 
       try {
         // Log the queries and parameters
-        console.log('Executing updateRoleQuery:', updateRoleQuery);
-        console.log('With parameters:', [role, user]);
+        //console.log('Executing updateRoleQuery:', updateRoleQuery);
+        //console.log('With parameters:', [role, user]);
 
         await new Promise((resolve, reject) => {
           connection.query(updateRoleQuery, [role, user], (error) => {
@@ -1717,7 +1717,7 @@ app.post('/api/add-seller', (req, res) => {
 app.get('/api/payments', (req, res) => {
   const user = req.query.username;
   const sql = 'SELECT * FROM payment WHERE username = ?';
-  console.log(`Fetching payments for user: ${user}`);
+  //console.log(`Fetching payments for user: ${user}`);
 
   db.query(sql, [user], (err, results) => {
     if (err) {
@@ -1732,6 +1732,6 @@ app.get('/api/payments', (req, res) => {
 
 
 // app.listen(port, () => {
-//   console.log(`Server is running on port: ${port}`);
+//   //console.log(`Server is running on port: ${port}`);
 // });
 module.exports = app;
