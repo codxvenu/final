@@ -813,8 +813,7 @@ app.post('/api/bins', (req, res) => {
       let data = results;
       
         for (let i = 0; i < data.length; i++) {
-          data[i]["ccnum"] = "NO cc num";
-          data[i]["cvv"] = "No Cvv Num";
+          data[i]["bin"] = "NO cc num";
         }
       
         res.json(data);
